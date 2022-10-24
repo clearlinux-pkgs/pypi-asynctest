@@ -4,7 +4,7 @@
 #
 Name     : pypi-asynctest
 Version  : 0.13.0
-Release  : 9
+Release  : 10
 URL      : https://files.pythonhosted.org/packages/0c/0f/6056f4435923d2f8c89ac9ef2d18506a569348d8f9cc827b0dd7a4c8acc4/asynctest-0.13.0.tar.gz
 Source0  : https://files.pythonhosted.org/packages/0c/0f/6056f4435923d2f8c89ac9ef2d18506a569348d8f9cc827b0dd7a4c8acc4/asynctest-0.13.0.tar.gz
 Summary  : Enhance the standard unittest package with features for testing asyncio libraries
