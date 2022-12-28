@@ -4,7 +4,7 @@
 #
 Name     : pypi-asynctest
 Version  : 0.13.0
-Release  : 13
+Release  : 14
 URL      : https://files.pythonhosted.org/packages/0c/0f/6056f4435923d2f8c89ac9ef2d18506a569348d8f9cc827b0dd7a4c8acc4/asynctest-0.13.0.tar.gz
 Source0  : https://files.pythonhosted.org/packages/0c/0f/6056f4435923d2f8c89ac9ef2d18506a569348d8f9cc827b0dd7a4c8acc4/asynctest-0.13.0.tar.gz
 Summary  : Enhance the standard unittest package with features for testing asyncio libraries
@@ -14,6 +14,9 @@ Requires: pypi-asynctest-license = %{version}-%{release}
 Requires: pypi-asynctest-python = %{version}-%{release}
 Requires: pypi-asynctest-python3 = %{version}-%{release}
 BuildRequires : buildreq-distutils3
+# Suppress stripping binaries
+%define __strip /bin/true
+%define debug_package %{nil}
 
 %description
 .. image:: https://img.shields.io/pypi/v/asynctest.svg
@@ -68,15 +71,15 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1656357726
+export SOURCE_DATE_EPOCH=1672256531
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=auto "
-export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto "
-export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto "
-export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=auto "
+export CFLAGS="$CFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
+export FCFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
+export FFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
+export CXXFLAGS="$CXXFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
 export MAKEFLAGS=%{?_smp_mflags}
 python3 setup.py build
 
@@ -93,7 +96,7 @@ popd
 export MAKEFLAGS=%{?_smp_mflags}
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/pypi-asynctest
-cp %{_builddir}/asynctest-0.13.0/LICENSE.md %{buildroot}/usr/share/package-licenses/pypi-asynctest/657a63f2f1c3e92d320cd5e1642ad1635d4ec734
+cp %{_builddir}/asynctest-%{version}/LICENSE.md %{buildroot}/usr/share/package-licenses/pypi-asynctest/657a63f2f1c3e92d320cd5e1642ad1635d4ec734 || :
 python3 -tt setup.py build  install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
